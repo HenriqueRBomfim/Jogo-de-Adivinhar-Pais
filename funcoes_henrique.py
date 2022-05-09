@@ -25,3 +25,15 @@ def haversine(r, o1, l1, o2, l2):
     y = (math.cos(o1))*(math.cos(o2))*((math.sin((l2-l1)/2))**2)
     z = math.sqrt(x+y)
     return 2*r*math.asin(z)
+
+def adiciona_em_ordem(nome, distancia, lista):
+    pais_novo = [nome, distancia]
+    i = 0
+    distancia2 = 0
+    for pais in lista:
+        if pais[1] > distancia2 and pais[1] < distancia:
+            distancia2 = pais[1]
+            i += 1
+    if pais_novo not in lista:
+        lista.insert(i, pais_novo)
+    return lista
