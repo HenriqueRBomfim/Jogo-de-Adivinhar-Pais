@@ -1,2 +1,4 @@
 # EP-2-Edu-Rique
-Batatas precisam ser bem temperadas
+Jogo de Geografia
+
+Integrantes: Eduardo Selber e Henrique Rocha
