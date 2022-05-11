@@ -6,20 +6,13 @@ import funcoes_henrique as fh
 import Funcoes_eduardo_selber as fe
 import BaseDePaises as base
 
-#Declaração de Variáveis
+#Normalizando a base e listando todos os países
 base_normalizada = fh.normaliza(base.DADOS)
+#print(base_normalizada)
 lista_tds_paises = []
 for pais in base_normalizada:
     lista_tds_paises.append(pais)
-
-tentativas = 20
-conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
-letras = []
-lista_cores = []
-lista_cores_sorteadas = []
-populacao = 0
-contine = 0
-opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
+#print(lista_tds_paises)
 
 #Início do Jogo
 print(" ============================\n|                            |\n| Bem-vindo ao Insper Países |\n|                            |")
@@ -28,6 +21,17 @@ print("    inventario - exibe sua posição\n\nUm país foi escolhido, tente adi
 
 #Fazendo um def para rodar o jogo quantas vezes a pessoa quiser:
 def jogo(num):
+    #Declarando variáveis
+    tentativas = 20
+    conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
+    letras = []
+    lista_cores = []
+    lista_cores_sorteadas = []
+    paises_e_distancias = []
+    dicas = []
+    populacao = 0
+    contine = 0
+    opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
     #Sorteando o país
     resposta = fh.sorteia_pais(base_normalizada)
     band = base_normalizada[resposta]['bandeira']
@@ -102,16 +106,23 @@ def jogo(num):
                 tentativas = 0
 
         if palpite == 'inventario':
-            print(dicas_print)
+            print("Distâncias:")
+            #print()
 
         verificando_na_lista = fe.esta_na_lista(palpite,lista_tds_paises)
-        if verificando_na_lista==False:
+        if verificando_na_lista==False and palpite != 'desisto':
             print('País invalido')
-        
+        #if verificando_na_lista == True:
+            #distancia = fh.haversine(base.EARTH_RADIUS,)
+            #fh.adiciona_em_ordem()
         tentativas -= 1
 
+    if confirmacao == 'n':
+        print(resposta)
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's':
         jogo(1)
     elif jogar_denovo == 'n':
         print("\n\n\nAté a próxima!")
+
+jogo(1)
