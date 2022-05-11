@@ -24,7 +24,7 @@ def jogo(num):
     #Declarando variáveis
     tentativas = 20
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
-    arcetou=0
+    acertou=0
     letras = []
     lista_cores = []
     lista_cores_sorteadas = []
