@@ -23,6 +23,7 @@ print("    inventario - exibe sua posição\n\nUm país foi escolhido, tente adi
 def jogo(num):
     #Declarando variáveis
     tentativas = 20
+    tentativas_max = 20
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
     acertou=0
     letras = []
@@ -33,7 +34,7 @@ def jogo(num):
     populacao = 0
     contine = 0
     ordem_paises_print=''
-    ordenando=0
+    ordenando=[]
     dica_invalida=0
     lista_opcoes_dicas=[0,1,2,3,4,5]
     mercado_dicas='''Mercado de Dicas
@@ -53,7 +54,7 @@ def jogo(num):
     longitude_resposta=base_normalizada[resposta]['geo']['longitude']
     band = base_normalizada[resposta]['bandeira']
     for cores,valores in base_normalizada[resposta]['bandeira'].items():
-        if valores != 0 and cores != 'outros':
+        if valores != 0 and cores != 'outras':
             lista_cores.append(cores)
 
     a=0
@@ -134,14 +135,16 @@ def jogo(num):
                     print('Opção inválida')
                     opcao = str(input(opcoes_dica))
                     dica_invalida=0
-        dica_invalida=0
-        print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print))    
+            dica_invalida=0
+            print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print))    
 
         if palpite == 'desisto':
             confirmacao = input("Tem certeza que deseja desistir da rodada? [s|n] ")
             if confirmacao == 's':
                 print(">>> Que deselegante desistir, o país era: {}".format(resposta))
                 tentativas = 0
+            if confirmacao == 'n':
+                tentativas += 1
 
         if palpite == 'inventario':
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
@@ -155,24 +158,24 @@ def jogo(num):
             latitude_palpite=base_normalizada[palpite.lower()]['geo']['latitude']
             longitude_palpite=base_normalizada[palpite.lower()]['geo']['longitude']
             distancia = int(fh.haversine(base.EARTH_RADIUS,latitude_palpite,longitude_palpite,latitude_resposta,longitude_resposta))
-            ordenando=fh.adiciona_em_ordem(palpite.lower(),distancia,paises_e_distancias)
+            ordenando=fh.adiciona_em_ordem(palpite.lower(),distancia,ordenando)
             
             while i<len(ordenando):
                 reg=ordenando[i]
-                ordem_paises_print+='{}km -> {}\n'.format(reg[1],reg[0])
+                if reg[0] not in ordem_paises_print:
+                    ordem_paises_print+='  {}km -> {}\n'.format(reg[1],reg[0])
                 i += 1
             i = 0
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
-            ordem_paises_print=''
+            
             if palpite.lower()==resposta:
-                print('***Parabéns voce acertou--após {} tentativas'.format(tentativas))
+                print('***Parabéns voce acertou--após {} tentativas'.format(tentativas_max - tentativas))
                 tentativas = 0
                 acertou = 1
             
         tentativas -= 1
-    if acertou==0:
-        print('''
->>> Você perdeu, o país era: {}'''.format(resposta))
+    if acertou == 0 and confirmacao == 'n':
+        print('''>>> Você perdeu, o país era: {}'''.format(resposta))
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's':
         jogo(1)
