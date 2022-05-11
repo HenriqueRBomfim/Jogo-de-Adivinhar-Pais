@@ -34,6 +34,7 @@ def jogo(num):
     populacao = 0
     contine = 0
     ordem_paises_print=''
+    ordem_paises_print2=''
     ordenando=[]
     dica_invalida=0
     lista_opcoes_dicas=[0,1,2,3,4,5]
@@ -159,13 +160,13 @@ def jogo(num):
             longitude_palpite=base_normalizada[palpite.lower()]['geo']['longitude']
             distancia = int(fh.haversine(base.EARTH_RADIUS,latitude_palpite,longitude_palpite,latitude_resposta,longitude_resposta))
             ordenando=fh.adiciona_em_ordem(palpite.lower(),distancia,ordenando)
-            
             while i<len(ordenando):
                 reg=ordenando[i]
-                if reg[0] not in ordem_paises_print:
-                    ordem_paises_print+='  {}km -> {}\n'.format(reg[1],reg[0])
+                ordem_paises_print2+='  {}km -> {}\n'.format(reg[1],reg[0])
                 i += 1
             i = 0
+            ordem_paises_print=ordem_paises_print2
+            ordem_paises_print2=''
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             
             if palpite.lower()==resposta:
