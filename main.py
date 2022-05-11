@@ -34,6 +34,12 @@ def jogo(num):
     contine = 0
     ordem_paises_print=''
     ordenando=0
+    mercado_dicas='''Mercado de Dicas
+    ----------------------------------------
+    \n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas
+    0. Sem dica\n
+    ----------------------------------------'''
+    mercado_dica_atualizado=''
     reg=0
     c=0
     i=0
@@ -57,15 +63,7 @@ def jogo(num):
         print("Você tem {0} tentativa(s)".format(tentativas))
         palpite = input("Qual seu palpite? ")
         if palpite == 'dica':
-            print('''Mercado de Dicas
-    ----------------------------------------
-    1. Cor da bandeira  - custa 4 tentativas
-    2. Letra da capital - custa 3 tentativas
-    3. Área             - custa 6 tentativas
-    4. População        - custa 5 tentativas
-    5. Continente       - custa 7 tentativas
-    0. Sem dica
-    ----------------------------------------''')
+            print(mercado_dicas)
             opcao = int(input(opcoes_dica))
             if opcao == 1:
                     tentativas -= 4
@@ -90,6 +88,8 @@ def jogo(num):
                     a = base_normalizada[resposta]['area']
                     dicas_print += '-Área:{}km²\n'.format(a)
                     opcoes_dica_atualizado =opcoes_dica.replace('|3','')
+                    mercado_dica_atualizado=mercado_dicas.replace('3. Área             - custa 6 tentativas\n','')
+                    mercado_dicas=mercado_dica_atualizado
                     opcoes_dica=opcoes_dica_atualizado
                     tentativas+=1
             if opcao == 4:
@@ -102,6 +102,8 @@ def jogo(num):
                     popula = base_normalizada[resposta]['populacao']
                     dicas_print += 'População:{}\n'.format(popula)
                     opcoes_dica_atualizado=opcoes_dica.replace('|4','')
+                    mercado_dica_atualizado=mercado_dicas.replace(    '4. População        - custa 5 tentativas\n','')
+                    mercado_dicas=mercado_dica_atualizado
                     opcoes_dica=opcoes_dica_atualizado
                     tentativas+=1
             if opcao == 5:
@@ -114,6 +116,8 @@ def jogo(num):
                     tentativas -= 7
                     dicas_print += '-Continente:{}\n'.format(contine)
                     opcoes_dica_atualizado=opcoes_dica.replace('|5','')
+                    mercado_dica_atualizado=mercado_dicas.replace('5. Continente       - custa 7 tentativas\n','')
+                    mercado_dicas=mercado_dica_atualizado
                     opcoes_dica=opcoes_dica_atualizado
                     tentativas+=1                   
             if opcao == 0:
