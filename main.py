@@ -76,7 +76,7 @@ def jogo(num):
                     tentativas -= 3
                     sorteada = fe.sorteia_letra(resposta, letras)
                     letras.append(sorteada)
-                    tdicas_prin += '-Letras da capital:{}\n'.format(letras)
+                    dicas_print += '-Letras da capital:{}\n'.format(letras)
                     tentativas+=1
             if opcao == 3:
                 if conta_dica_3 > 0:
@@ -164,8 +164,6 @@ def jogo(num):
     if arcetou==0:
         print('''
 >>> Você perdeu, o país era: {}'''.format(resposta))
-    if confirmacao == 'n':
-        print(resposta)
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's':
         jogo(1)
