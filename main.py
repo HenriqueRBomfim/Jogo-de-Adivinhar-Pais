@@ -37,7 +37,7 @@ def jogo(num):
     mercado_dicas='''Mercado de Dicas
     ----------------------------------------
     \n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas
-    0. Sem dica\n
+0. Sem dica\n
     ----------------------------------------'''
     mercado_dica_atualizado=''
     reg=0
@@ -55,7 +55,6 @@ def jogo(num):
             lista_cores.append(cores)
 
     a=0
-
     dicas_print = ''
 
     #Jogo
@@ -146,22 +145,18 @@ def jogo(num):
             
             while i<len(ordenando):
                 reg=ordenando[i]
-                ordem_paises_print+='{}km->{}\n'.format(reg[1],reg[0])
-                i+=1
-            i=0
+                ordem_paises_print+='{}km -> {}\n'.format(reg[1],reg[0])
+                i += 1
+            i = 0
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             ordem_paises_print=''
             if palpite.lower()==resposta:
                 print('***Parabéns voce acertou--após {} tentativas'.format(tentativas))
-                tentativas=0
-                arcetou=1
+                tentativas = 0
+                acertou = 1
             
-            
-
-
-
         tentativas -= 1
-    if arcetou==0:
+    if acertou==0:
         print('''
 >>> Você perdeu, o país era: {}'''.format(resposta))
     jogar_denovo = input("Jogar novamente? [s|n] ")
