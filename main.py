@@ -82,6 +82,8 @@ def jogo(num):
                         tentativas -= 4
                         cor_sorteada = random.choice(lista_cores)
                         lista_cores.remove(cor_sorteada)
+                        if '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas) in dicas_print:
+                            dicas_print-= '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas)
                         lista_cores_sorteadas.append(cor_sorteada)
                         dicas_print += '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas)
                         tentativas+=1
@@ -89,6 +91,8 @@ def jogo(num):
                 if opcao == '2':
                         tentativas -= 3
                         sorteada = fe.sorteia_letra(resposta, letras)
+                        if '-Letras da capital:{}\n'.format(letras) in dicas_print:
+                            dicas_print-= '-Letras da capital:{}\n'.format(letras)
                         letras.append(sorteada)
                         dicas_print += '-Letras da capital:{}\n'.format(letras)
                         tentativas+=1

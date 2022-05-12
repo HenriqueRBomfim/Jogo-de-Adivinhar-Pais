@@ -1,4 +1,5 @@
-import random 
+import random
+ 
 def sorteia_letra(plv,res):
     letras=[]
     c=['.', ',', '-', ';', ' ']
