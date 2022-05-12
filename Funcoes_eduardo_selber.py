@@ -8,13 +8,14 @@ def sorteia_letra(plv,res):
             letras.append(i.lower())
     if len(letras)==0:
         return ''
-    
     return random.choice(letras)
+
 def esta_na_lista(nome,lista):
     for i in lista:
         if i[0]==nome:
             return True
     return False
+    
 def adiciona_em_ordem(nome,distancia,lista):
     combinado=[nome,distancia]
     c=0
