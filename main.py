@@ -153,6 +153,11 @@ def jogo(num):
             if confirmacao == 's':
                 print(">>> Que deselegante desistir, o país era: {}".format(resposta))
                 tentativas = 0
+                jogar_denovo = input("Jogar novamente? [s|n] ")
+                if jogar_denovo == 's':
+                    jogo(1)
+                elif jogar_denovo == 'n':
+                    print("\n\n\nAté a próxima!")
             if confirmacao == 'n':
                 tentativas += 1
 
@@ -168,16 +173,16 @@ def jogo(num):
             latitude_palpite=base_normalizada[palpite.lower()]['geo']['latitude']
             longitude_palpite=base_normalizada[palpite.lower()]['geo']['longitude']
             distancia = int(fh.haversine(base.EARTH_RADIUS,latitude_palpite,longitude_palpite,latitude_resposta,longitude_resposta))
-            ordenando=fh.adiciona_em_ordem(palpite.lower(),distancia,ordenando)
+            ordenando = fh.adiciona_em_ordem(palpite.lower(),distancia,ordenando)
             while i<len(ordenando):
                 reg=ordenando[i]
                 if reg[1] > 10000:
                     ordem_paises_print2+= Fore.LIGHTBLACK_EX + '  {}km -> {}\n'.format(reg[1],reg[0])
-                elif reg[1] > 5000 and distancia <= 10000:
+                elif reg[1] > 5000 and reg[1] <= 10000:
                     ordem_paises_print2+= Fore.MAGENTA + '  {}km -> {}\n'.format(reg[1],reg[0])
-                elif reg[1] > 2000 and distancia <= 5000:
+                elif reg[1] > 2000 and reg[1] <= 5000:
                     ordem_paises_print2+= Fore.RED + '  {}km -> {}\n'.format(reg[1],reg[0])
-                elif reg[1] > 500 and distancia <= 2000:
+                elif reg[1] > 500 and reg[1] <= 2000:
                     ordem_paises_print2+= Fore.YELLOW + '  {}km -> {}\n'.format(reg[1],reg[0])
                 elif reg[1] <= 500:
                     ordem_paises_print2+= Fore.LIGHTGREEN_EX + '  {}km -> {}\n'.format(reg[1],reg[0])
@@ -193,7 +198,7 @@ def jogo(num):
                 acertou = 1
             
         tentativas -= 1
-    if acertou == 0 and confirmacao == 'n':
+    if acertou == 0:
         print('''>>> Você perdeu, o país era: {}'''.format(resposta))
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's':
