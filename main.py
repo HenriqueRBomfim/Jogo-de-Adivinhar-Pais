@@ -5,6 +5,9 @@ import random
 import funcoes_henrique as fh
 import Funcoes_eduardo_selber as fe
 import BaseDePaises as base
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
 
 #Normalizando a base e listando todos os países
 base_normalizada = fh.normaliza(base.DADOS)
@@ -63,7 +66,7 @@ def jogo(num):
 
     #Jogo
     while tentativas > 0:
-        print("Você tem {0} tentativa(s)".format(tentativas))
+        print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
         palpite = input("Qual seu palpite? ")
         if palpite == 'dica':
             print(mercado_dicas)
