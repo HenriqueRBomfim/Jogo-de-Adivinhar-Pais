@@ -6,7 +6,7 @@ import funcoes_henrique as fh
 import Funcoes_eduardo_selber as fe
 import BaseDePaises as base
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 colorama.init(autoreset=True)
 
 #Normalizando a base e listando todos os países
@@ -33,15 +33,11 @@ def jogo(num):
     letras = []
     lista_cores = []
     lista_cores_sorteadas = []
-    paises_e_distancias = []
-    dicas = []
-    populacao = 0
     contine = 0
     ordem_paises_print=''
     ordem_paises_print2=''
     ordenando=[]
     dica_invalida=0
-    lista_opcoes_dicas=[0,1,2,3,4,5]
     mercado_dicas='''Mercado de Dicas
     ----------------------------------------
     \n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas
@@ -49,7 +45,6 @@ def jogo(num):
     ----------------------------------------'''
     mercado_dica_atualizado=''
     reg=0
-    c=0
     i=0
     opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
     opcoes_dica_atualizado=''
@@ -91,10 +86,11 @@ def jogo(num):
                 if opcao == '2':
                         tentativas -= 3
                         sorteada = fe.sorteia_letra(resposta, letras)
-                        if '-Letras da capital:{}\n'.format(letras) in dicas_print:
-                            dicas_print-= '-Letras da capital:{}\n'.format(letras)
+                        variavel = '-Letras da capital:{}\n'.format(letras)
+                        if variavel in dicas_print:
+                            del dicas_print[variavel]
                         letras.append(sorteada)
-                        dicas_print += '-Letras da capital:{}\n'.format(letras)
+                        dicas_print += variavel
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '3':
@@ -157,11 +153,6 @@ def jogo(num):
             if confirmacao == 's':
                 print(">>> Que deselegante desistir, o país era: {}".format(resposta))
                 tentativas = 0
-                jogar_denovo = input("Jogar novamente? [s|n] ")
-                if jogar_denovo == 's':
-                    jogo(1)
-                elif jogar_denovo == 'n':
-                    print("\n\n\nAté a próxima!")
             if confirmacao == 'n':
                 tentativas += 1
 
@@ -169,7 +160,6 @@ def jogo(num):
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             tentativas+=1  
 
-        verificando_na_lista = fe.esta_na_lista(palpite,lista_tds_paises)
         if palpite.lower() not in lista_tds_paises and palpite != 'desisto' and palpite!='dica' and palpite!='inventario':
             print('País invalido')
             tentativas+=1
@@ -202,7 +192,7 @@ def jogo(num):
                 acertou = 1
             
         tentativas -= 1
-    if acertou == 0:
+    if acertou == 0 and confirmacao == '':
         print('''>>> Você perdeu, o país era: {}'''.format(resposta))
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's':
