@@ -29,6 +29,7 @@ def jogo(num):
     tentativas_max = 20
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
     acertou=0
+    confirmacao = ''
     letras = []
     lista_cores = []
     lista_cores_sorteadas = []
@@ -66,7 +67,12 @@ def jogo(num):
 
     #Jogo
     while tentativas > 0:
-        print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+        if tentativas > 10:
+            print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+        if (tentativas > 5) and (tentativas < 11):
+            print("Você tem " + f"{Fore.YELLOW}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+        if tentativas <= 5:
+            print("Você tem " + f"{Fore.RED}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
         palpite = input("Qual seu palpite? ")
         if palpite == 'dica':
             print(mercado_dicas)
@@ -165,7 +171,16 @@ def jogo(num):
             ordenando=fh.adiciona_em_ordem(palpite.lower(),distancia,ordenando)
             while i<len(ordenando):
                 reg=ordenando[i]
-                ordem_paises_print2+='  {}km -> {}\n'.format(reg[1],reg[0])
+                if reg[1] > 10000:
+                    ordem_paises_print2+= Fore.LIGHTBLACK_EX + '  {}km -> {}\n'.format(reg[1],reg[0])
+                elif reg[1] > 5000 and distancia <= 10000:
+                    ordem_paises_print2+= Fore.MAGENTA + '  {}km -> {}\n'.format(reg[1],reg[0])
+                elif reg[1] > 2000 and distancia <= 5000:
+                    ordem_paises_print2+= Fore.RED + '  {}km -> {}\n'.format(reg[1],reg[0])
+                elif reg[1] > 500 and distancia <= 2000:
+                    ordem_paises_print2+= Fore.YELLOW + '  {}km -> {}\n'.format(reg[1],reg[0])
+                elif reg[1] <= 500:
+                    ordem_paises_print2+= Fore.LIGHTGREEN_EX + '  {}km -> {}\n'.format(reg[1],reg[0])
                 i += 1
             i = 0
             ordem_paises_print=ordem_paises_print2
