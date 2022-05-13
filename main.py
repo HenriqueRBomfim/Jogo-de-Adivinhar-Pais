@@ -1,6 +1,7 @@
 #Importação de bibliotecas
 from csv import DictReader
 import math
+from ntpath import join
 import random
 import funcoes_henrique as fh
 import Funcoes_eduardo_selber as fe
@@ -29,7 +30,9 @@ def jogo(num):
     tentativas_max = 20
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
     acertou=0
+    cores_sorteadas=''
     confirmacao = ''
+    letra_not=''
     letras = []
     lista_cores = []
     lista_cores_sorteadas = []
@@ -78,18 +81,20 @@ def jogo(num):
                         cor_sorteada = random.choice(lista_cores)
                         lista_cores.remove(cor_sorteada)
                         if '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas) in dicas_print:
-                            dicas_print-= '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas)
+                            dicas_print-= '-Cores da bandeira:{}\n'.format(cores_sorteadas)
                         lista_cores_sorteadas.append(cor_sorteada)
-                        dicas_print += '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas)
+                        cores_sorteadas.join(lista_cores_sorteadas)
+                        dicas_print += '-Cores da bandeira:{}\n'.format(cores_sorteadas)
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '2':
                         tentativas -= 3
                         sorteada = fe.sorteia_letra(resposta, letras)
-                        variavel = '-Letras da capital:{}\n'.format(letras)
+                        variavel = '-Letras da capital:{}\n'.format(letra_not)
                         if variavel in dicas_print:
                             del dicas_print[variavel]
                         letras.append(sorteada)
+                        letra_not.join(letras)
                         dicas_print += variavel
                         tentativas+=1
                         dica_invalida=1
