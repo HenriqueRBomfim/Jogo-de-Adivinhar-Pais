@@ -201,7 +201,7 @@ def jogo(num):
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             dicas_print=''
             if palpite.lower()==resposta:
-                print('***Parabéns voce acertou--após {} tentativas'.format(tentativas_max - tentativas))
+                print('***Parabéns! Você acertou após ' + f'{Fore.CYAN}{Style.BRIGHT}{tentativas_max - tentativas}{Fore.RESET}' + ' tentativas! :)***')
                 tentativas = 0
                 acertou = 1
             
