@@ -34,6 +34,10 @@ def jogo(num):
     confirmacao = ''
     letra_not=''
     letras = []
+    dicas_print_2={'cores':'0','letras':'0','area':'0','população':'0','continente':'0'}
+    join_c=''
+    join_l=''
+
     lista_cores = []
     lista_cores_sorteadas = []
     contine = 0
@@ -80,22 +84,18 @@ def jogo(num):
                         tentativas -= 4
                         cor_sorteada = random.choice(lista_cores)
                         lista_cores.remove(cor_sorteada)
-                        if '-Cores da bandeira:{}\n'.format(lista_cores_sorteadas) in dicas_print:
-                            dicas_print-= '-Cores da bandeira:{}\n'.format(cores_sorteadas)
+
                         lista_cores_sorteadas.append(cor_sorteada)
-                        cores_sorteadas.join(lista_cores_sorteadas)
-                        dicas_print += '-Cores da bandeira:{}\n'.format(cores_sorteadas)
+                        join_c=','.join(lista_cores_sorteadas)
+                        dicas_print_2['cores']=( '-Cores da bandeira:{}\n'.format(join_c))
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '2':
                         tentativas -= 3
                         sorteada = fe.sorteia_letra(resposta, letras)
-                        variavel = '-Letras da capital:{}\n'.format(letra_not)
-                        if variavel in dicas_print:
-                            del dicas_print[variavel]
                         letras.append(sorteada)
-                        letra_not.join(letras)
-                        dicas_print += variavel
+                        join_l=','.join(letras)
+                        dicas_print_2['letras']=('-Letras da capital:{}\n'.format(join_l))
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '3':
@@ -106,7 +106,7 @@ def jogo(num):
                         conta_dica_3 = 1
                         tentativas -= 6
                         a = base_normalizada[resposta]['area']
-                        dicas_print += '-Área:{}km²\n'.format(a)
+                        dicas_print_2['area']=( '-Área:{}km²\n'.format(a))
                         opcoes_dica_atualizado =opcoes_dica.replace('|3','')
                         mercado_dica_atualizado=mercado_dicas.replace('3. Área             - custa 6 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -121,7 +121,7 @@ def jogo(num):
                         conta_dica_4 = 1
                         tentativas -= 5
                         popula = base_normalizada[resposta]['populacao']
-                        dicas_print += 'População:{}\n'.format(popula)
+                        dicas_print_2['população']=('População:{}\n'.format(popula))
                         opcoes_dica_atualizado=opcoes_dica.replace('|4','')
                         mercado_dica_atualizado=mercado_dicas.replace(    '4. População        - custa 5 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -136,7 +136,7 @@ def jogo(num):
                         contine = base_normalizada[resposta]["continente"]
                         conta_dica_5 = 1
                         tentativas -= 7
-                        dicas_print += '-Continente:{}\n'.format(contine)
+                        dicas_print_2['continente']=('-Continente:{}\n'.format(contine))
                         opcoes_dica_atualizado=opcoes_dica.replace('|5','')
                         mercado_dica_atualizado=mercado_dicas.replace('5. Continente       - custa 7 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -151,6 +151,10 @@ def jogo(num):
                     opcao = str(input(opcoes_dica))
                     dica_invalida=0
             dica_invalida=0
+            dicas_print=''
+            for v in dicas_print_2.values():
+                if v!='0':
+                    dicas_print+=v
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print))    
 
         if palpite == 'desisto':
@@ -162,6 +166,10 @@ def jogo(num):
                 tentativas += 1
 
         if palpite == 'inventario':
+            dicas_print=''
+            for v in dicas_print_2.values():
+                if v!='0':
+                    dicas_print+=v
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             tentativas+=1  
 
@@ -189,8 +197,9 @@ def jogo(num):
             i = 0
             ordem_paises_print=ordem_paises_print2
             ordem_paises_print2=''
+
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
-            
+            dicas_print=''
             if palpite.lower()==resposta:
                 print('***Parabéns voce acertou--após {} tentativas'.format(tentativas_max - tentativas))
                 tentativas = 0
