@@ -29,46 +29,43 @@ def jogo(num):
     tentativas = 20
     tentativas_max = 20
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
-    acertou=0
-    cores_sorteadas=''
+    acertou = 0
+    contine = 0
+    a = 0
+    dica_invalida = 0
+    reg = 0
+    i = 0
     confirmacao = ''
-    letra_not=''
     letras = []
-    dicas_print_2={'cores':'0','letras':'0','area':'0','população':'0','continente':'0'}
-    join_c=''
-    join_l=''
-
     lista_cores = []
     lista_cores_sorteadas = []
-    contine = 0
-    ordem_paises_print=''
-    ordem_paises_print2=''
-    ordenando=[]
-    dica_invalida=0
-    mercado_dicas='''Mercado de Dicas
+    ordenando = []
+    dicas_print_2 = {'cores':'0','letras':'0','area':'0','população':'0','continente':'0'}
+    join_c = ''
+    join_l = ''
+    ordem_paises_print = ''
+    ordem_paises_print2 = ''
+    dicas_print = ''
+    mercado_dica_atualizado = ''
+    opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
+    opcoes_dica_atualizado = ''
+    mercado_dicas = '''Mercado de Dicas
     ----------------------------------------
     \n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas
 0. Sem dica\n
     ----------------------------------------'''
-    mercado_dica_atualizado=''
-    reg=0
-    i=0
-    opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
-    opcoes_dica_atualizado=''
+    
     #Sorteando o país
     resposta = fh.sorteia_pais(base_normalizada)
     latitude_resposta=base_normalizada[resposta]['geo']['latitude']
     longitude_resposta=base_normalizada[resposta]['geo']['longitude']
-    band = base_normalizada[resposta]['bandeira']
     for cores,valores in base_normalizada[resposta]['bandeira'].items():
         if valores != 0 and cores != 'outras':
             lista_cores.append(cores)
 
-    a=0
-    dicas_print = ''
-
     #Jogo
     while tentativas > 0:
+        # Colorindo a variável "tentativas" de acordo com quantas ainda restam
         if tentativas > 10:
             print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
         if (tentativas > 5) and (tentativas < 11):
@@ -76,6 +73,7 @@ def jogo(num):
         if tentativas <= 5:
             print("Você tem " + f"{Fore.RED}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
         palpite = input("Qual seu palpite? ")
+        #Analisando o palpite do usuário
         if palpite == 'dica':
             print(mercado_dicas)
             opcao = str(input(opcoes_dica))
@@ -86,7 +84,7 @@ def jogo(num):
                         lista_cores.remove(cor_sorteada)
 
                         lista_cores_sorteadas.append(cor_sorteada)
-                        join_c=','.join(lista_cores_sorteadas)
+                        join_c=', '.join(lista_cores_sorteadas)
                         dicas_print_2['cores']=( '-Cores da bandeira:{}\n'.format(join_c))
                         tentativas+=1
                         dica_invalida=1
@@ -94,7 +92,7 @@ def jogo(num):
                         tentativas -= 3
                         sorteada = fe.sorteia_letra(resposta, letras)
                         letras.append(sorteada)
-                        join_l=','.join(letras)
+                        join_l=', '.join(letras)
                         dicas_print_2['letras']=('-Letras da capital:{}\n'.format(join_l))
                         tentativas+=1
                         dica_invalida=1
@@ -168,7 +166,7 @@ def jogo(num):
         if palpite == 'inventario':
             dicas_print=''
             for v in dicas_print_2.values():
-                if v!='0':
+                if v != '0':
                     dicas_print+=v
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             tentativas+=1  
@@ -184,12 +182,18 @@ def jogo(num):
             while i<len(ordenando):
                 reg=ordenando[i]
                 if reg[1] > 10000:
-                    ordem_paises_print2+= Fore.LIGHTBLACK_EX + '  {}km -> {}\n'.format(reg[1],reg[0])
+                    distancia_pontuada = fh.coloca_ponto(reg[1])
+                    ordem_paises_print2+= Fore.LIGHTBLACK_EX + '  {}km -> {}\n'.format(distancia_pontuada,reg[0])
                 elif reg[1] > 5000 and reg[1] <= 10000:
-                    ordem_paises_print2+= Fore.MAGENTA + '  {}km -> {}\n'.format(reg[1],reg[0])
+                    distancia_pontuada = fh.coloca_ponto(reg[1])
+                    ordem_paises_print2+= Fore.MAGENTA + '  {}km -> {}\n'.format(distancia_pontuada,reg[0])
                 elif reg[1] > 2000 and reg[1] <= 5000:
-                    ordem_paises_print2+= Fore.RED + '  {}km -> {}\n'.format(reg[1],reg[0])
-                elif reg[1] > 500 and reg[1] <= 2000:
+                    distancia_pontuada = fh.coloca_ponto(reg[1])
+                    ordem_paises_print2+= Fore.RED + '  {}km -> {}\n'.format(distancia_pontuada,reg[0])
+                elif reg[1] > 999 and reg[1] <= 2000:
+                    distancia_pontuada = fh.coloca_ponto(reg[1])
+                    ordem_paises_print2+= Fore.YELLOW + '  {}km -> {}\n'.format(distancia_pontuada,reg[0])
+                elif reg[1] > 500 and reg[1] <= 999:
                     ordem_paises_print2+= Fore.YELLOW + '  {}km -> {}\n'.format(reg[1],reg[0])
                 elif reg[1] <= 500:
                     ordem_paises_print2+= Fore.LIGHTGREEN_EX + '  {}km -> {}\n'.format(reg[1],reg[0])

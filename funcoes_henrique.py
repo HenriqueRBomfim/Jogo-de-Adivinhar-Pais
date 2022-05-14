@@ -37,3 +37,18 @@ def adiciona_em_ordem(nome, distancia, lista):
     if pais_novo not in lista:
         lista.insert(i, pais_novo)
     return lista
+
+def coloca_ponto(distancia):
+    string_dist = str(distancia)
+    dist_caracteres = []
+    for caractere in string_dist:
+        dist_caracteres.append(caractere)
+    distancia_pontuada = ''
+    i = 0
+    while i <= len(dist_caracteres):
+        char = dist_caracteres[i]
+        distancia_pontuada += char
+        if i == -3: 
+            ponto = '.'
+            distancia_pontuada += ponto
+    return distancia_pontuada
