@@ -10,11 +10,9 @@ colorama.init(autoreset=True)
 
 #Normalizando a base e listando todos os países
 base_normalizada = fh.normaliza(base.DADOS)
-#print(base_normalizada)
 lista_tds_paises = []
 for pais in base_normalizada:
     lista_tds_paises.append(pais)
-#print(lista_tds_paises)
 
 #Início do Jogo
 print(" ============================\n|                            |\n| Bem-vindo ao Insper Países |\n|                            |")
