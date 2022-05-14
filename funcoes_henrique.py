@@ -47,9 +47,29 @@ def coloca_ponto(distancia):
     i = 0
     while i < len(dist_caracteres):
         char = dist_caracteres[i]
-        if i == 2 and distancia > 9999: 
+        if i == 1 and distancia > 999999 and distancia <= 9999999: 
             distancia_pontuada += '.'
-        elif i == 1 and distancia > 999 and distancia <= 9999: 
+        if i == 4 and distancia > 999999 and distancia <= 9999999: 
+            distancia_pontuada += '.'
+        if i == 2 and distancia > 9999999 and distancia <= 99999999: 
+            distancia_pontuada += '.'
+        if i == 5 and distancia > 9999999 and distancia <= 99999999: 
+            distancia_pontuada += '.'
+        if i == 3 and distancia > 99999999 and distancia <= 999999999: 
+            distancia_pontuada += '.'
+        if i == 6 and distancia > 99999999 and distancia <= 999999999:
+            distancia_pontuada += '.'
+        if i == 1 and distancia > 999999999 and distancia <= 9999999999: 
+            distancia_pontuada += '.'
+        if i == 4 and distancia > 999999999 and distancia <= 9999999999: 
+            distancia_pontuada += '.'
+        if i == 7 and distancia > 999999999 and distancia <= 9999999999: 
+            distancia_pontuada += '.'
+        if i == 3 and distancia > 99999 and distancia <= 999999: 
+            distancia_pontuada += '.'
+        if i == 2 and distancia > 9999 and distancia <= 99999: 
+            distancia_pontuada += '.'
+        if i == 1 and distancia > 999 and distancia <= 9999: 
             distancia_pontuada += '.'
         distancia_pontuada += char
         i += 1

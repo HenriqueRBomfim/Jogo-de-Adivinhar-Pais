@@ -81,7 +81,7 @@ def jogo(num):
                         lista_cores.remove(cor_sorteada)
                         lista_cores_sorteadas.append(cor_sorteada)
                         join_c=', '.join(lista_cores_sorteadas)
-                        dicas_print_2['cores']=( '-Cores da bandeira:{}\n'.format(join_c))
+                        dicas_print_2['cores']=( ' - Cores da bandeira: {}\n'.format(join_c))
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '2':
@@ -89,7 +89,7 @@ def jogo(num):
                         sorteada = fe.sorteia_letra(resposta, letras)
                         letras.append(sorteada)
                         join_l=', '.join(letras)
-                        dicas_print_2['letras']=('-Letras da capital:{}\n'.format(join_l))
+                        dicas_print_2['letras']=(' - Letras da capital: {}\n'.format(join_l))
                         tentativas+=1
                         dica_invalida=1
                 if opcao == '3':
@@ -99,8 +99,8 @@ def jogo(num):
                     else:
                         conta_dica_3 = 1
                         tentativas -= 6
-                        a = base_normalizada[resposta]['area']
-                        dicas_print_2['area']=( '-Área:{}km²\n'.format(a))
+                        a = fh.coloca_ponto(base_normalizada[resposta]['area'])
+                        dicas_print_2['area']=( ' - Área: {} km²\n'.format(a))
                         opcoes_dica_atualizado =opcoes_dica.replace('|3','')
                         mercado_dica_atualizado=mercado_dicas.replace('3. Área             - custa 6 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -114,8 +114,8 @@ def jogo(num):
                     else:
                         conta_dica_4 = 1
                         tentativas -= 5
-                        popula = base_normalizada[resposta]['populacao']
-                        dicas_print_2['população']=('População:{}\n'.format(popula))
+                        popula = fh.coloca_ponto(base_normalizada[resposta]['populacao'])
+                        dicas_print_2['população']=(' - População: {} habitantes\n'.format(popula))
                         opcoes_dica_atualizado=opcoes_dica.replace('|4','')
                         mercado_dica_atualizado=mercado_dicas.replace(    '4. População        - custa 5 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -130,7 +130,7 @@ def jogo(num):
                         contine = base_normalizada[resposta]["continente"]
                         conta_dica_5 = 1
                         tentativas -= 7
-                        dicas_print_2['continente']=('-Continente:{}\n'.format(contine))
+                        dicas_print_2['continente']=(' - Continente: {}\n'.format(contine))
                         opcoes_dica_atualizado=opcoes_dica.replace('|5','')
                         mercado_dica_atualizado=mercado_dicas.replace('5. Continente       - custa 7 tentativas\n','')
                         mercado_dicas=mercado_dica_atualizado
@@ -153,10 +153,10 @@ def jogo(num):
 
         if palpite == 'desisto':
             confirmacao = input("Tem certeza que deseja desistir da rodada? [s|n] ")
-            if confirmacao == 's':
+            if confirmacao == 's' or confirmacao == 'sim':
                 print(">>> Que deselegante desistir, o país era: {}".format(resposta))
                 tentativas = 0
-            if confirmacao == 'n':
+            if confirmacao == 'n' or confirmacao == 'nao' or confirmacao == 'não':
                 tentativas += 1
 
         if palpite == 'inventario':
@@ -209,9 +209,9 @@ def jogo(num):
     if acertou == 0 and confirmacao == '':
         print('''>>> Você perdeu, o país era: {}'''.format(resposta))
     jogar_denovo = input("Jogar novamente? [s|n] ")
-    if jogar_denovo == 's':
+    if jogar_denovo == 's' or jogar_denovo == 'sim':
         jogo(1)
-    elif jogar_denovo == 'n':
+    elif jogar_denovo == 'n' or jogar_denovo == 'nao' or jogar_denovo == 'não':
         print("\n\n\nAté a próxima!")
 
 jogo(1)
