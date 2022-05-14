@@ -45,10 +45,12 @@ def coloca_ponto(distancia):
         dist_caracteres.append(caractere)
     distancia_pontuada = ''
     i = 0
-    while i <= len(dist_caracteres):
+    while i < len(dist_caracteres):
         char = dist_caracteres[i]
+        if i == 2 and distancia > 9999: 
+            distancia_pontuada += '.'
+        elif i == 1 and distancia > 999 and distancia <= 9999: 
+            distancia_pontuada += '.'
         distancia_pontuada += char
-        if i == -3: 
-            ponto = '.'
-            distancia_pontuada += ponto
+        i += 1
     return distancia_pontuada

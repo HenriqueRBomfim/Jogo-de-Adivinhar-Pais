@@ -1,6 +1,4 @@
 #Importação de bibliotecas
-from csv import DictReader
-import math
 from ntpath import join
 import random
 import funcoes_henrique as fh
@@ -31,7 +29,6 @@ def jogo(num):
     conta_dica_3, conta_dica_4, conta_dica_5 = 0,0,0
     acertou = 0
     contine = 0
-    a = 0
     dica_invalida = 0
     reg = 0
     i = 0
@@ -45,7 +42,6 @@ def jogo(num):
     join_l = ''
     ordem_paises_print = ''
     ordem_paises_print2 = ''
-    dicas_print = ''
     mercado_dica_atualizado = ''
     opcoes_dica = "Escolha sua opção [0|1|2|3|4|5]: "
     opcoes_dica_atualizado = ''
@@ -62,6 +58,9 @@ def jogo(num):
     for cores,valores in base_normalizada[resposta]['bandeira'].items():
         if valores != 0 and cores != 'outras':
             lista_cores.append(cores)
+
+    a = 0
+    dicas_print = ''
 
     #Jogo
     while tentativas > 0:
@@ -82,7 +81,6 @@ def jogo(num):
                         tentativas -= 4
                         cor_sorteada = random.choice(lista_cores)
                         lista_cores.remove(cor_sorteada)
-
                         lista_cores_sorteadas.append(cor_sorteada)
                         join_c=', '.join(lista_cores_sorteadas)
                         dicas_print_2['cores']=( '-Cores da bandeira:{}\n'.format(join_c))
