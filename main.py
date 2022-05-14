@@ -17,7 +17,7 @@ for pais in base_normalizada:
 #Início do Jogo
 print(" ============================\n|                            |\n| Bem-vindo ao Insper Países |\n|                            |")
 print(" ==== Design de Software ==== \n\n Comandos:\n\n    dica       - entra no mercado de dicas\n    desisto    - desiste da rodada")
-print("    inventario - exibe sua posição\n\nUm país foi escolhido, tente adivinhar!")
+print("    inventario - exibe sua posição\n")
 
 #Fazendo um def para rodar o jogo quantas vezes a pessoa quiser:
 def jogo(num):
@@ -62,14 +62,15 @@ def jogo(num):
     dicas_print = ''
 
     #Jogo
+    print("\nUm país foi escolhido, tente adivinhar!")
     while tentativas > 0:
         # Colorindo a variável "tentativas" de acordo com quantas ainda restam
         if tentativas > 10:
-            print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+            print("Você tem " + f"{Fore.CYAN}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)\n")
         if (tentativas > 5) and (tentativas < 11):
-            print("Você tem " + f"{Fore.YELLOW}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+            print("Você tem " + f"{Fore.YELLOW}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)\n")
         if tentativas <= 5:
-            print("Você tem " + f"{Fore.RED}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)")
+            print("Você tem " + f"{Fore.RED}{Style.BRIGHT}{tentativas}{Fore.RESET}" + " tentativa(s)\n")
         palpite = input("Qual seu palpite? ")
         #Analisando o palpite do usuário
         if palpite == 'dica':
@@ -210,6 +211,7 @@ def jogo(num):
         tentativas -= 1
     if acertou == 0 and confirmacao == '':
         print('''>>> Você perdeu, o país era: {}'''.format(resposta))
+    print("\n")
     jogar_denovo = input("Jogar novamente? [s|n] ")
     if jogar_denovo == 's' or jogar_denovo == 'sim':
         jogo(1)
