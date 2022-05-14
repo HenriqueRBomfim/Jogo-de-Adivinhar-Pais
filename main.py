@@ -35,6 +35,7 @@ def jogo(num):
     lista_cores = []
     lista_cores_sorteadas = []
     ordenando = []
+    paises_chutados = []
     dicas_print_2 = {'cores':'0','letras':'0','area':'0','população':'0','continente':'0'}
     join_c = ''
     join_l = ''
@@ -167,10 +168,11 @@ def jogo(num):
             print('''Dicas:\n{}\nDistancias:\n{}'''.format(dicas_print,ordem_paises_print)) 
             tentativas+=1  
 
-        if palpite.lower() not in lista_tds_paises and palpite != 'desisto' and palpite!='dica' and palpite!='inventario':
+        if (palpite.lower() not in lista_tds_paises and palpite != 'desisto' and palpite!='dica' and palpite!='inventario') or (palpite in paises_chutados):
             print('País invalido')
             tentativas+=1
-        if palpite.lower() in lista_tds_paises:
+        if (palpite.lower() in lista_tds_paises) and (palpite.lower not in paises_chutados):
+            paises_chutados.append(palpite)
             latitude_palpite=base_normalizada[palpite.lower()]['geo']['latitude']
             longitude_palpite=base_normalizada[palpite.lower()]['geo']['longitude']
             distancia = int(fh.haversine(base.EARTH_RADIUS,latitude_palpite,longitude_palpite,latitude_resposta,longitude_resposta))
